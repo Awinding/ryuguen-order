@@ -22,30 +22,36 @@
     background:radial-gradient(120% 60% at 50% 0%, rgba(214,90,32,.18), transparent 60%),
                radial-gradient(80% 40% at 50% 100%, rgba(180,40,30,.12), transparent 70%);}
 
-  header{position:relative;z-index:1;text-align:center;padding:28px 20px 20px;border-bottom:1px solid var(--line);}
+  header{position:relative;z-index:1;text-align:center;padding:26px 20px 16px;border-bottom:1px solid var(--line);}
   .ko{font-size:11px;letter-spacing:.5em;color:var(--gold2);margin-bottom:8px;}
-  h1{margin:0;font-family:var(--mincho);font-size:40px;color:var(--ember);text-shadow:0 2px 12px rgba(214,90,32,.4);}
+  h1{margin:0;font-family:var(--mincho);font-size:38px;color:var(--ember);text-shadow:0 2px 12px rgba(214,90,32,.4);}
   .en{font-size:10px;letter-spacing:.3em;color:var(--muted);margin-top:8px;}
-  .guests{margin-top:16px;display:inline-flex;align-items:center;gap:12px;padding:6px 16px;border-radius:999px;
+  .guests{margin-top:14px;display:inline-flex;align-items:center;gap:12px;padding:6px 16px;border-radius:999px;
     background:rgba(0,0,0,.3);border:1px solid rgba(201,163,94,.3);}
   .guests span.lbl{font-size:12px;color:var(--gold2);}
   .guests b{width:20px;text-align:center;}
   .gbtn{width:26px;height:26px;border-radius:50%;border:none;background:rgba(201,163,94,.15);color:var(--ink);font-size:15px;cursor:pointer;}
 
+  .modebar{position:relative;z-index:1;display:flex;gap:8px;padding:12px 16px 0;}
+  .modebar button{flex:1;padding:11px 0;border:1px solid var(--line);border-radius:12px 12px 0 0;border-bottom:none;
+    background:rgba(0,0,0,.2);color:var(--muted);font-family:var(--serif);font-size:15px;cursor:pointer;position:relative;}
+  .modebar button.active{background:rgba(232,80,58,.12);border-color:rgba(232,80,58,.4);color:var(--ember);font-weight:700;}
+  .modebar .mbadge{margin-left:6px;font-size:11px;padding:1px 7px;border-radius:999px;background:var(--ember);color:#fff;}
+
   nav{position:sticky;top:0;z-index:20;display:flex;flex-wrap:nowrap;overflow-x:auto;background:rgba(29,23,18,.94);
     backdrop-filter:blur(10px);border-bottom:1px solid var(--line);scrollbar-width:none;-webkit-overflow-scrolling:touch;}
   nav::-webkit-scrollbar{display:none;}
-  nav button{flex:0 0 auto;padding:13px 16px;border:none;background:none;color:var(--muted);font-family:var(--serif);
+  nav button{flex:0 0 auto;padding:13px 15px;border:none;background:none;color:var(--muted);font-family:var(--serif);
     font-size:14px;cursor:pointer;position:relative;white-space:nowrap;}
   nav button.active{color:var(--ember);font-weight:700;}
   nav button.active::after{content:"";position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:24px;height:2px;background:var(--ember);}
-  nav .badge{position:absolute;top:5px;right:6px;min-width:16px;height:16px;border-radius:999px;
+  nav .badge{position:absolute;top:5px;right:4px;min-width:16px;height:16px;border-radius:999px;
     background:var(--ember);color:#fff;font-size:9px;line-height:16px;padding:0 3px;}
 
   main{position:relative;z-index:1;padding:16px 16px 140px;}
   .subhead{font-size:13px;color:var(--gold2);margin:18px 0 10px;letter-spacing:.04em;display:flex;align-items:center;gap:8px;}
   .subhead:first-child{margin-top:0;}
-  .subhead::before{content:"";width:10px;height:10px;background:
+  .subhead::before{content:"";width:10px;height:10px;flex:0 0 auto;background:
     linear-gradient(45deg,var(--gold2) 25%,transparent 25%,transparent 75%,var(--gold2) 75%),
     linear-gradient(45deg,var(--gold2) 25%,transparent 25%,transparent 75%,var(--gold2) 75%);
     background-size:5px 5px;background-position:0 0,2.5px 2.5px;opacity:.7;}
@@ -70,6 +76,18 @@
   .step.plus{background:var(--ember);color:#fff;}
   .step:active{transform:scale(.9);}
   .qty{width:20px;text-align:center;font-size:18px;font-weight:600;color:var(--gold);}
+  /* 杯/瓶 變體 */
+  .variants{margin-top:8px;display:flex;flex-direction:column;gap:6px;}
+  .vrow{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:7px 10px;border-radius:9px;
+    background:rgba(201,163,94,.07);border:1px solid rgba(201,163,94,.12);}
+  .vrow.on{background:rgba(232,80,58,.1);border-color:rgba(232,80,58,.35);}
+  .vleft{display:flex;align-items:baseline;gap:6px;min-width:0;}
+  .vlabel{font-size:13px;color:var(--ink);}
+  .vja{font-size:10px;color:var(--dim);}
+  .vprice{font-family:var(--mincho);font-size:15px;color:var(--gold);margin-left:auto;padding:0 8px;white-space:nowrap;}
+  .add.sm{padding:4px 12px;font-size:13px;}
+  .step.sm{width:26px;height:26px;font-size:15px;}
+  .stepper.sm{gap:8px;}
   .footnote{font-size:10px;text-align:center;color:#6d6150;margin-top:24px;line-height:1.7;}
   .footnote .ig{color:var(--gold2);}
 
@@ -91,12 +109,13 @@
   .shead h2{margin:0;flex:1;font-family:var(--mincho);font-size:20px;color:var(--gold);}
   .x{background:none;border:none;color:var(--muted);font-size:24px;cursor:pointer;line-height:1;}
   .oitems{padding:12px 20px;}
-  .oitem{display:flex;align-items:center;gap:10px;padding:6px 0;}
-  .oitem .on-num{color:var(--gold2);}
-  .oitem .oinfo{flex:1;}
+  .ocat{font-size:11px;color:var(--gold2);margin:10px 0 4px;letter-spacing:.1em;}
+  .oitem{display:flex;align-items:center;gap:8px;padding:6px 0;}
+  .oitem .on-num{color:var(--gold2);font-size:13px;}
+  .oitem .oinfo{flex:1;min-width:0;}
   .oitem .oinfo .t{font-size:14px;color:var(--ink);}
   .oitem .oinfo .s{font-size:10px;color:var(--dim);}
-  .oitem .op{font-size:14px;font-weight:600;color:var(--gold);}
+  .oitem .op{font-size:14px;font-weight:600;color:var(--gold);white-space:nowrap;}
   .om{width:24px;height:24px;border-radius:50%;border:none;font-size:14px;cursor:pointer;}
   .om.minus{background:rgba(201,163,94,.15);color:var(--ink);}
   .om.plus{background:rgba(232,80,58,.85);color:#fff;}
@@ -107,9 +126,9 @@
 
   .staff{margin:8px 16px 24px;border-radius:16px;padding:16px;background:rgba(0,0,0,.3);border:1px dashed rgba(201,163,94,.35);}
   .staff .title{font-size:12px;font-weight:600;color:var(--gold2);margin-bottom:10px;}
-  .srow{display:flex;align-items:center;justify-content:space-between;font-size:14px;color:#e6dccb;margin-bottom:6px;}
+  .srow{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;font-size:14px;color:#e6dccb;margin-bottom:6px;}
   .srow .sn{color:var(--gold);}
-  .srow .sq{font-weight:700;color:var(--gold);}
+  .srow .sq{font-weight:700;color:var(--gold);white-space:nowrap;}
   .sfoot{font-size:11px;color:var(--dim);margin-top:10px;padding-top:8px;border-top:1px solid rgba(201,163,94,.15);line-height:1.6;}
 </style>
 </head>
@@ -129,6 +148,7 @@
     </div>
   </header>
 
+  <div class="modebar" id="modebar"></div>
   <nav id="nav"></nav>
   <main id="list"></main>
 
@@ -147,10 +167,12 @@
 <script>
 const CIRCLED=["","①","②","③","④","⑤","⑥","⑦","⑧","⑨","⑩","⑪","⑫","⑬","⑭","⑮","⑯","⑰","⑱","⑲","⑳",
   "㉑","㉒","㉓","㉔","㉕","㉖","㉗","㉘","㉙","㉚","㉛","㉜","㉝","㉞","㉟","㊱","㊲","㊳","㊴","㊵",
-  "㊶","㊷","㊸","㊹","㊺","㊻","㊼","㊽","㊾","㊿","51","52","53","54","55","56","57","58","59","60"];
+  "㊶","㊷","㊸","㊹","㊺","㊻","㊼","㊽","㊾","㊿"];
+const circle=n=>n>=1&&n<=50?CIRCLED[n]:String(n);
 const yen=n=>"¥"+n.toLocaleString();
 
-const MENU={
+/* ───── 餐點 ───── */
+const MENU_FOOD={
   sets:{label:"套餐",groups:[{sub:"セットメニュー・每位",items:[
     {id:1,zh:"主廚特選套餐",ja:"料理長お任せコース",price:12000,perGuest:true,
      desc:"前菜・有機沙拉・泡菜／整條牛舌・鹽烤宮古牛2種・醬烤宮古牛3種＋生菜包肉／飯麵任選／甜點"},
@@ -159,7 +181,6 @@ const MENU={
     {id:3,zh:"招牌沖繩和牛套餐",ja:"琉宮苑 沖縄県産和牛セット",price:7800,perGuest:true,
      desc:"前菜・有機沙拉・泡菜／和牛當日3部位・烤蝦魷魚・沖繩豬・山原雞・烤蔬菜／白飯・湯"},
   ]}]},
-
   beef:{label:"牛肉",groups:[{sub:"琉宮苑特選 宮古牛・沖縄県産和牛・輸入牛（醤油ダレ／塩）",items:[
     {id:4,zh:"宮古牛 里肌（沙朗）",ja:"宮古牛ロース",price:3300},
     {id:5,zh:"宮古牛 牛小排",ja:"宮古牛カルビ",price:3300},
@@ -172,7 +193,6 @@ const MENU={
     {id:12,zh:"整條牛舌（舌根到舌尖）",ja:"1本タン（タン元からタン先まで）",price:1500,tag:"輸入牛"},
     {id:13,zh:"宮古牛 各式稀有部位",ja:"宮古牛各種希少部位",price:2300,from:true,desc:"依當日進貨，請看店內推薦看板"},
   ]}]},
-
   porkchicken:{label:"豬・雞",groups:[
     {sub:"特選 沖縄県産豚",items:[
       {id:14,zh:"沖繩豬五花",ja:"沖縄県産豚バラ肉",price:1600},
@@ -186,7 +206,6 @@ const MENU={
       {id:20,zh:"雞頸肉",ja:"せせり",price:900},
     ]},
   ]},
-
   hormone:{label:"內臟・海鮮",groups:[
     {sub:"ホルモン焼き（內臟燒烤）",items:[
       {id:21,zh:"綜合內臟（特製味噌醬）",ja:"MIXホルモン（特製みそダレ）",price:1400},
@@ -201,7 +220,6 @@ const MENU={
       {id:28,zh:"烤透抽",ja:"ヤリイカ",price:900},
     ]},
   ]},
-
   veg:{label:"蔬菜・泡菜",groups:[
     {sub:"焼き野菜（烤蔬菜）",items:[
       {id:29,zh:"錫箔烤大蒜",ja:"にんにくホイル焼き",price:600},
@@ -225,7 +243,6 @@ const MENU={
       {id:43,zh:"包肉生菜盤",ja:"包み野菜",price:700},
     ]},
   ]},
-
   side:{label:"單品・湯鍋",groups:[
     {sub:"一品料理・おつまみ（單品・下酒菜）",items:[
       {id:44,zh:"琉宮苑特製韓式煎餅",ja:"琉宮苑特製チヂミ",price:1300},
@@ -241,7 +258,6 @@ const MENU={
       {id:50,zh:"蛋花湯",ja:"玉子スープ",price:800},
     ]},
   ]},
-
   rice:{label:"飯・麵",groups:[{sub:"御飯・麺類（飯・麵類）",items:[
     {id:51,zh:"石鍋拌飯",ja:"石焼きビビンバ",price:1500},
     {id:52,zh:"韓式拌飯",ja:"ビビンバ",price:1200},
@@ -252,60 +268,204 @@ const MENU={
     {id:57,zh:"白飯（中）",ja:"御飯（中）",price:350},
     {id:58,zh:"白飯（小）",ja:"御飯（小）",price:200},
   ]}]},
-
   dessert:{label:"甜點",groups:[{sub:"デザート（甜點）",items:[
     {id:59,zh:"南國冰淇淋（多種口味）",ja:"南国アイス（各種）",price:600},
     {id:60,zh:"杏仁豆腐佐黑糖蜜",ja:"杏仁豆腐黒糖蜜がけ",price:600},
   ]}]},
 };
 
-const ALL=Object.values(MENU).flatMap(t=>t.groups.flatMap(g=>g.items));
-const find=id=>ALL.find(i=>i.id===id);
-let cart={}, tab="sets", guests=2;
+/* ───── 飲料：共用杯/瓶價組 ───── */
+const VA_AWA1=[{zh:"杯",label:"グラス",price:800},{zh:"瓶",label:"ボトル",price:5500}];
+const VA_AWA2=[{zh:"杯",label:"グラス",price:1000},{zh:"瓶",label:"ボトル",price:8800}];
+const VA_MAK =[{zh:"杯",label:"グラス",price:800},{zh:"瓶",label:"ボトル",price:4500}];
+const VA_WINE1=[{zh:"杯",label:"グラス",price:800},{zh:"壺",label:"カラフェ",price:2500}];
+const VA_WINE2=[{zh:"杯",label:"グラス",price:1200},{zh:"瓶",label:"ボトル",price:6600}];
+const VA_SHO1=[{zh:"杯",label:"グラス",price:800},{zh:"瓶",label:"ボトル",price:4500}];
+const VA_SHO2=[{zh:"杯",label:"グラス",price:1100},{zh:"瓶",label:"ボトル",price:6600}];
 
-function setQty(id,q){ if(q<=0)delete cart[id]; else cart[id]=q; render(); }
+const MENU_DRINK={
+  beer:{label:"啤酒",groups:[
+    {sub:"BEER（啤酒）",items:[
+      {id:1,zh:"生啤酒 Orion",ja:"生ビール（オリオン）",price:880},
+      {id:2,zh:"Orion 中瓶",ja:"オリオン中瓶",price:880},
+      {id:3,zh:"Orion Premium 75 小瓶",ja:"オリオンプレミアム75 小瓶",price:880},
+      {id:4,zh:"朝日 Super Dry 中瓶",ja:"アサヒスーパードライ中瓶",price:880},
+      {id:5,zh:"無酒精啤酒",ja:"ノンアルコールビール",price:770},
+    ]},
+    {sub:"CRAFT BEER（精釀啤酒）",items:[
+      {id:21,zh:"Island Brewing 芒果 IPA",ja:'Island Brewing "MANGO IPA"',price:1650,desc:"宮古島產芒果釀造，至福一杯"},
+      {id:22,zh:"Island Brewing 香檬 Saison",ja:'Island Brewing "シークヮーサーセゾン"',price:1650},
+    ]},
+  ]},
+  highball:{label:"嗨棒・沙瓦",groups:[
+    {sub:"HIGHBALL（嗨棒）",items:[
+      {id:6,zh:"角嗨棒",ja:"角ハイボール",price:770},
+      {id:7,zh:"琉球波布嗨棒",ja:"琉球ハブボール",price:770},
+      {id:8,zh:"薑汁嗨棒",ja:"ジンジャーハイ",price:900},
+      {id:9,zh:"可樂嗨棒",ja:"コークハイ",price:900},
+    ]},
+    {sub:"SOUR（沙瓦）",items:[
+      {id:10,zh:"烏龍嗨",ja:"ウーロンハイ",price:770},
+      {id:11,zh:"香片嗨（茉莉茶）",ja:"さんぴんハイ",price:770},
+      {id:12,zh:"檸檬沙瓦",ja:"レモンサワー",price:770},
+      {id:13,zh:"香檬沙瓦",ja:"シークヮーサーサワー",price:770},
+      {id:14,zh:"可爾必思沙瓦",ja:"カルピスサワー",price:770},
+      {id:15,zh:"黑烏龍嗨",ja:"黒ウーロンハイ",price:880},
+      {id:16,zh:"鮮榨檸檬沙瓦",ja:"生レモンサワー",price:880},
+      {id:17,zh:"鮮榨葡萄柚沙瓦",ja:"生グレープフルーツサワー",price:880},
+      {id:18,zh:"芒果沙瓦",ja:"マンゴーサワー",price:880},
+      {id:19,zh:"芭樂沙瓦",ja:"グァバサワー",price:880},
+      {id:20,zh:"百香果沙瓦",ja:"パッションフルーツサワー",price:880},
+    ]},
+  ]},
+  awamori:{label:"泡盛・燒酎",groups:[
+    {sub:"AWAMORI（泡盛）",items:[
+      {id:23,zh:"琉球王朝",ja:"琉球王朝（古酒30度）",variants:VA_AWA1},
+      {id:24,zh:"豐見親",ja:"豊見親（古酒30度）",variants:VA_AWA1},
+      {id:25,zh:"akari",ja:"akari（25度）",variants:VA_AWA1},
+      {id:26,zh:"太郎",ja:"太郎（古酒30度）",variants:VA_AWA1},
+      {id:27,zh:"久遠",ja:"久遠（35度）",variants:VA_AWA2},
+      {id:28,zh:"菊乃露 VIP GOLD",ja:"菊乃露VIP GOLD（8年30度）",variants:VA_AWA2},
+      {id:29,zh:"瑞光",ja:"瑞光（古酒40度）",variants:VA_AWA2},
+    ]},
+    {sub:"SHOCHU（燒酎）",items:[
+      {id:35,zh:"JINRO 真露",ja:"JINRO",variants:VA_SHO1},
+      {id:36,zh:"iichiko（麥）",ja:"いいちこ〈麦〉",variants:VA_SHO1},
+      {id:37,zh:"黑霧島（芋）",ja:"黒霧島〈芋〉",variants:VA_SHO1},
+      {id:38,zh:"中々（麥）",ja:"中々〈麦〉",variants:VA_SHO2},
+      {id:39,zh:"赤霧島（芋）",ja:"赤霧島〈芋〉",variants:VA_SHO2},
+      {id:40,zh:"另售蘇打水",ja:"別売りソーダ",price:500,desc:"※燒酎兌蘇打另加"},
+    ]},
+    {sub:"MAKGEOLLI（馬格利）",items:[
+      {id:30,zh:"生馬格利（微氣泡）",ja:"生マッコリ〈微炭酸〉",variants:VA_MAK},
+    ]},
+  ]},
+  wine:{label:"酒・琴酒",groups:[
+    {sub:"WINE（紅白酒）",items:[
+      {id:31,zh:"紅酒 卡本內蘇維濃〈Carlo Rossi 美國〉",ja:"カルロ・ロッシ 赤 カベルネ・ソーヴィニヨン",variants:VA_WINE1},
+      {id:32,zh:"白酒 夏多內〈Carlo Rossi 美國〉",ja:"カルロ・ロッシ 白 シャルドネ",variants:VA_WINE1},
+      {id:33,zh:"紅酒 卡本內蘇維濃〈Allamanda 智利〉",ja:"アラマンダ 赤 カベルネ・ソーヴィニヨン",variants:VA_WINE2},
+      {id:34,zh:"白酒 夏多內〈Allamanda 智利〉",ja:"アラマンダ 白 シャルドネ",variants:VA_WINE2,desc:"※其他瓶裝酒請洽店員（¥12,000起）"},
+    ]},
+    {sub:"MIYAKO GIN（宮古琴酒 47度）",items:[
+      {id:41,zh:"宮古琴酒 ＋ 蘇打",ja:"MIYAKO GIN with ソーダ",price:800},
+      {id:42,zh:"宮古琴酒 ＋ 柳橙汁",ja:"with オレンジジュース",price:900},
+      {id:43,zh:"宮古琴酒 ＋ 薑汁汽水",ja:"with ジンジャーエール",price:900},
+      {id:44,zh:"宮古琴酒 ＋ 芒果汁",ja:"with マンゴージュース",price:900},
+    ]},
+  ]},
+  soft:{label:"軟性飲料",groups:[
+    {sub:"SOFT DRINK（無酒精）",items:[
+      {id:45,zh:"烏龍茶",ja:"ウーロン茶",price:660},
+      {id:46,zh:"香片茶（茉莉）",ja:"さんぴん茶",price:660},
+      {id:47,zh:"可樂",ja:"コーラ",price:660},
+      {id:48,zh:"薑汁汽水",ja:"ジンジャーエール",price:660},
+      {id:49,zh:"葡萄柚汁",ja:"グレープフルーツジュース",price:660},
+      {id:50,zh:"香檬汁",ja:"シークヮーサージュース",price:660},
+      {id:51,zh:"芒果汁",ja:"マンゴージュース",price:660},
+      {id:52,zh:"芭樂汁",ja:"グァバジュース",price:660},
+      {id:53,zh:"百香果汁",ja:"パッションフルーツジュース",price:660},
+      {id:54,zh:"可爾必思",ja:"カルピス",price:660},
+      {id:55,zh:"黑烏龍茶",ja:"黒ウーロン茶",price:880},
+      {id:56,zh:"無酒精梅酒",ja:"ノンアルコール梅酒〈ソーダ／ロック／水割り／ストレート〉",price:660},
+      {id:57,zh:"San Pellegrino 氣泡水",ja:"サンペレグリノ",price:1000},
+    ]},
+    {sub:"CRAFT COLA（精釀可樂）",items:[
+      {id:58,zh:"MIYAKO COLA 宮古原味",ja:"MIYAKO COLA MIYAKO ORIGINAL",price:980,desc:"宮古島手工可樂：檸檬・香檬・月桃・長胡椒・島辣椒・黑糖＋10種以上香料"},
+      {id:59,zh:"MIYAKO COLA 芒果特調",ja:"MIYAKO COLA MANGO SPECIAL",price:980,desc:"蘋果芒果・梅爾檸檬・黑糖・薑・海鹽＋10種以上香料"},
+    ]},
+  ]},
+};
+
+const MENUS={food:MENU_FOOD,drink:MENU_DRINK};
+const MODE_LABEL={food:"🍖 餐點",drink:"🍺 飲料"};
+const CAT_ICON={food:"🍖",drink:"🍺"};
+
+function flatten(menu,cat){return Object.values(menu).flatMap(t=>t.groups.flatMap(g=>g.items.map(it=>({...it,cat}))));}
+const ALL=[...flatten(MENU_FOOD,"food"),...flatten(MENU_DRINK,"drink")];
+const uidOf=it=>it.cat[0]+it.id;
+const byUid=u=>ALL.find(it=>uidOf(it)===u);
+
+let cart={};            // { key: qty }  key = uid 或 uid#variantIdx
+let mode="food", tab="sets", guests=2;
+
+function lineInfo(key){
+  const [base,vi]=key.split("#");
+  const it=byUid(base);
+  if(vi!==undefined){const v=it.variants[+vi];return{it,v,price:v.price,from:false};}
+  return{it,v:null,price:it.price,from:!!it.from};
+}
+function setLine(key,q){ if(q<=0)delete cart[key]; else cart[key]=q; render(); }
 function changeGuests(d){ guests=Math.max(1,guests+d); document.getElementById("guestNum").textContent=guests; renderSheet(); }
 function openSheet(){ renderSheet(); document.getElementById("mask").classList.add("show"); }
 function closeSheet(){ document.getElementById("mask").classList.remove("show"); }
-function tabCount(t){ return MENU[t].groups.flatMap(g=>g.items).reduce((a,it)=>a+(cart[it.id]||0),0); }
 
-function totals(){
-  let total=0,count=0,from=false;
-  for(const[id,q]of Object.entries(cart)){const it=find(+id);total+=it.price*q;count+=q;if(it.from)from=true;}
-  return{total,count,from};
+function totals(){let total=0,count=0,from=false;
+  for(const[k,q]of Object.entries(cart)){const li=lineInfo(k);total+=li.price*q;count+=q;if(li.from)from=true;}
+  return{total,count,from};}
+function modeCount(m){let c=0;for(const[k,q]of Object.entries(cart)){if(byUid(k.split("#")[0]).cat===m)c+=q;}return c;}
+function tabCount(m,tk){
+  const set=new Set(MENUS[m][tk].groups.flatMap(g=>g.items.map(it=>m[0]+it.id)));
+  let c=0;for(const[k,q]of Object.entries(cart)){if(set.has(k.split("#")[0]))c+=q;}return c;}
+
+function renderModebar(){
+  document.getElementById("modebar").innerHTML=Object.keys(MENUS).map(m=>{
+    const c=modeCount(m);
+    return `<button class="${mode===m?'active':''}" onclick="setMode('${m}')">${MODE_LABEL[m]}${c?`<span class="mbadge">${c}</span>`:''}</button>`;
+  }).join("");
 }
+function setMode(m){ mode=m; tab=Object.keys(MENUS[m])[0]; render(); window.scrollTo({top:0}); }
 
 function renderNav(){
-  document.getElementById("nav").innerHTML=Object.entries(MENU).map(([k,s])=>{
-    const c=tabCount(k);
+  document.getElementById("nav").innerHTML=Object.entries(MENUS[mode]).map(([k,s])=>{
+    const c=tabCount(mode,k);
     return `<button class="${tab===k?'active':''}" onclick="selectTab('${k}')">${s.label}${c?`<span class="badge">${c}</span>`:''}</button>`;
   }).join("");
 }
-function selectTab(k){ tab=k; render(); document.querySelector('main').scrollIntoView({behavior:'instant',block:'start'}); }
+function selectTab(k){ tab=k; render(); document.querySelector('main').scrollIntoView({block:'start'}); }
+
+function addBtn(key,sm){return `<button class="add${sm?' sm':''}" onclick="setLine('${key}',1)">加入</button>`;}
+function stepper(key,q,sm){return `<div class="stepper${sm?' sm':''}">
+  <button class="step minus${sm?' sm':''}" onclick="setLine('${key}',${q-1})">−</button>
+  <span class="qty">${q}</span>
+  <button class="step plus${sm?' sm':''}" onclick="setLine('${key}',${q+1})">＋</button></div>`;}
 
 function itemCard(it){
-  const q=cart[it.id]||0;
-  const ctrl=q===0
-    ? `<button class="add" onclick="setQty(${it.id},1)">加入</button>`
-    : `<div class="stepper"><button class="step minus" onclick="setQty(${it.id},${q-1})">−</button><span class="qty">${q}</span><button class="step plus" onclick="setQty(${it.id},${q+1})">＋</button></div>`;
+  const u=mode[0]+it.id;
+  if(it.variants){
+    const anyOn=it.variants.some((_,i)=>cart[u+"#"+i]);
+    const rows=it.variants.map((v,i)=>{
+      const key=u+"#"+i,q=cart[key]||0;
+      return `<div class="vrow ${q?'on':''}">
+        <div class="vleft"><span class="vlabel">${v.zh}</span><span class="vja">${v.label}</span></div>
+        <span class="vprice">${yen(v.price)}</span>
+        ${q?stepper(key,q,true):addBtn(key,true)}</div>`;}).join("");
+    return `<div class="card ${anyOn?'on':''}">
+      <div class="num">${circle(it.id)}</div>
+      <div class="body">
+        <div class="nm"><h3>${it.zh}</h3></div>
+        <div class="ja">${it.ja}</div>
+        ${it.desc?`<div class="desc">${it.desc}</div>`:''}
+        <div class="variants">${rows}</div>
+      </div></div>`;
+  }
+  const q=cart[u]||0;
   return `<div class="card ${q?'on':''}">
-    <div class="num">${CIRCLED[it.id]}</div>
+    <div class="num">${circle(it.id)}</div>
     <div class="body">
       <div class="nm"><h3>${it.zh}</h3>${it.tag?`<span class="tag">${it.tag}</span>`:''}</div>
       <div class="ja">${it.ja}</div>
       ${it.desc?`<div class="desc">${it.desc}</div>`:''}
       <div class="row">
         <span class="price">${it.from?'¥2,300〜':yen(it.price)}${it.perGuest?'<small>/位</small>':''}</span>
-        ${ctrl}
+        ${q?stepper(u,q):addBtn(u)}
       </div>
     </div></div>`;
 }
 
 function renderList(){
-  const sec=MENU[tab];
-  const html=sec.groups.map(g=>
-    `<p class="subhead">${g.sub}</p>`+g.items.map(itemCard).join("")
-  ).join("");
+  const sec=MENUS[mode][tab];
+  const html=sec.groups.map(g=>`<p class="subhead">${g.sub}</p>`+g.items.map(itemCard).join("")).join("");
   document.getElementById("list").innerHTML=html+
     `<p class="footnote">※ 圖片僅供參考　※ 標示價格均已含消費稅<br><span class="ig">📷 @RYUGUEN_MIYAKO</span></p>`;
 }
@@ -317,18 +477,36 @@ function renderCheckout(){
   document.getElementById("cTotal").textContent=yen(total)+(from?"〜":"");
 }
 
+function sortedEntries(){
+  return Object.entries(cart).sort((a,b)=>{
+    const A=byUid(a[0].split("#")[0]),B=byUid(b[0].split("#")[0]);
+    if(A.cat!==B.cat)return A.cat==="food"?-1:1;
+    return A.id-B.id;
+  });
+}
+
 function renderSheet(){
   const{total,from}=totals();
-  const entries=Object.entries(cart).sort((a,b)=>a[0]-b[0]);
+  const entries=sortedEntries();
   if(entries.length===0){closeSheet();return;}
-  const lines=entries.map(([id,q])=>{const it=find(+id);return `<div class="oitem">
-      <span class="on-num">${CIRCLED[it.id]}</span>
-      <div class="oinfo"><div class="t">${it.zh}</div><div class="s">${yen(it.price)}${it.from?'〜':''} × ${q}</div></div>
-      <span class="op">${yen(it.price*q)}${it.from?'〜':''}</span>
-      <button class="om minus" onclick="setQty(${it.id},${q-1})">−</button>
-      <button class="om plus" onclick="setQty(${it.id},${q+1})">＋</button>
-    </div>`;}).join("");
-  const staff=entries.map(([id,q])=>{const it=find(+id);return `<div class="srow"><span><span class="sn">${CIRCLED[it.id]}</span> ${it.ja}</span><span class="sq">× ${q}</span></div>`;}).join("");
+  let lastCat=null,lines="";
+  for(const[key,q]of entries){
+    const{it,v,price}=lineInfo(key);
+    if(it.cat!==lastCat){lastCat=it.cat;lines+=`<div class="ocat">${MODE_LABEL[it.cat]}</div>`;}
+    const vlbl=v?` <span class="vja">・${v.zh}${v.label}</span>`:'';
+    lines+=`<div class="oitem">
+      <span class="on-num">${circle(it.id)}</span>
+      <div class="oinfo"><div class="t">${it.zh}${vlbl}</div><div class="s">${yen(price)} × ${q}</div></div>
+      <span class="op">${yen(price*q)}</span>
+      <button class="om minus" onclick="setLine('${key}',${q-1})">−</button>
+      <button class="om plus" onclick="setLine('${key}',${q+1})">＋</button></div>`;
+  }
+  let lastCat2=null,staff="";
+  for(const[key,q]of entries){
+    const{it,v}=lineInfo(key);
+    const vlbl=v?`（${v.label}）`:'';
+    staff+=`<div class="srow"><span><span class="sn">${CAT_ICON[it.cat]}${circle(it.id)}</span> ${it.ja}${vlbl}</span><span class="sq">× ${q}</span></div>`;
+  }
   document.getElementById("sheet").innerHTML=`
     <div class="shead"><h2>我的訂單</h2><button class="x" onclick="closeSheet()">✕</button></div>
     <div class="oitems">${lines}</div>
@@ -345,7 +523,7 @@ function renderSheet(){
     </div>`;
 }
 
-function render(){ renderNav(); renderList(); renderCheckout();
+function render(){ renderModebar(); renderNav(); renderList(); renderCheckout();
   if(document.getElementById("mask").classList.contains("show")) renderSheet(); }
 
 render();
