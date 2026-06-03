@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>炭火燒肉 琉宮苑・線上點餐</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;900&family=Noto+Serif+JP:wght@400;700&family=Shippori+Mincho:wght@700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#1d1712; --bg2:#221b15; --ink:#f1e3d0; --muted:#9a8a72;
+    --dim:#7d6f5c; --gold:#e8b85a; --gold2:#c9a35e; --ember:#e8503a; --ember2:#c93820;
+    --line:rgba(201,163,94,.18); --serif:'Noto Serif TC','Noto Serif JP',serif;
+    --mincho:'Shippori Mincho','Noto Serif TC',serif;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html,body{margin:0;padding:0;}
+  body{background:#17120e;font-family:var(--serif);color:var(--ink);}
+  .app{max-width:480px;margin:0 auto;min-height:100vh;background:var(--bg);position:relative;overflow-x:hidden;}
+  .glow{position:fixed;inset:0;max-width:480px;margin:0 auto;pointer-events:none;opacity:.6;z-index:0;
+    background:radial-gradient(120% 60% at 50% 0%, rgba(214,90,32,.18), transparent 60%),
+               radial-gradient(80% 40% at 50% 100%, rgba(180,40,30,.12), transparent 70%);}
+
+  header{position:relative;z-index:1;text-align:center;padding:28px 20px 20px;border-bottom:1px solid var(--line);}
+  .ko{font-size:11px;letter-spacing:.5em;color:var(--gold2);margin-bottom:8px;}
+  h1{margin:0;font-family:var(--mincho);font-size:40px;color:var(--ember);text-shadow:0 2px 12px rgba(214,90,32,.4);}
+  .en{font-size:10px;letter-spacing:.3em;color:var(--muted);margin-top:8px;}
+  .guests{margin-top:16px;display:inline-flex;align-items:center;gap:12px;padding:6px 16px;border-radius:999px;
+    background:rgba(0,0,0,.3);border:1px solid rgba(201,163,94,.3);}
+  .guests span.lbl{font-size:12px;color:var(--gold2);}
+  .guests b{width:20px;text-align:center;}
+  .gbtn{width:26px;height:26px;border-radius:50%;border:none;background:rgba(201,163,94,.15);color:var(--ink);font-size:15px;cursor:pointer;}
+
+  nav{position:sticky;top:0;z-index:20;display:flex;flex-wrap:nowrap;overflow-x:auto;background:rgba(29,23,18,.94);
+    backdrop-filter:blur(10px);border-bottom:1px solid var(--line);scrollbar-width:none;-webkit-overflow-scrolling:touch;}
+  nav::-webkit-scrollbar{display:none;}
+  nav button{flex:0 0 auto;padding:13px 16px;border:none;background:none;color:var(--muted);font-family:var(--serif);
+    font-size:14px;cursor:pointer;position:relative;white-space:nowrap;}
+  nav button.active{color:var(--ember);font-weight:700;}
+  nav button.active::after{content:"";position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:24px;height:2px;background:var(--ember);}
+  nav .badge{position:absolute;top:5px;right:6px;min-width:16px;height:16px;border-radius:999px;
+    background:var(--ember);color:#fff;font-size:9px;line-height:16px;padding:0 3px;}
+
+  main{position:relative;z-index:1;padding:16px 16px 140px;}
+  .subhead{font-size:13px;color:var(--gold2);margin:18px 0 10px;letter-spacing:.04em;display:flex;align-items:center;gap:8px;}
+  .subhead:first-child{margin-top:0;}
+  .subhead::before{content:"";width:10px;height:10px;background:
+    linear-gradient(45deg,var(--gold2) 25%,transparent 25%,transparent 75%,var(--gold2) 75%),
+    linear-gradient(45deg,var(--gold2) 25%,transparent 25%,transparent 75%,var(--gold2) 75%);
+    background-size:5px 5px;background-position:0 0,2.5px 2.5px;opacity:.7;}
+  .card{border-radius:12px;padding:14px;display:flex;gap:12px;margin-bottom:10px;
+    background:rgba(0,0,0,.22);border:1px solid rgba(201,163,94,.14);transition:.2s;}
+  .card.on{background:rgba(232,80,58,.08);border-color:rgba(232,80,58,.4);}
+  .num{font-size:17px;color:var(--gold2);padding-top:2px;min-width:22px;}
+  .body{flex:1;min-width:0;}
+  .nm{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;}
+  .nm h3{margin:0;font-size:16px;font-weight:600;color:var(--ink);line-height:1.25;}
+  .tag{font-size:9px;padding:2px 6px;border-radius:4px;background:rgba(201,163,94,.2);color:var(--gold2);white-space:nowrap;}
+  .ja{font-size:11px;color:var(--dim);margin-top:2px;}
+  .desc{font-size:10px;color:var(--muted);margin-top:4px;line-height:1.4;}
+  .row{display:flex;align-items:center;justify-content:space-between;margin-top:8px;}
+  .price{font-family:var(--mincho);font-size:18px;font-weight:600;color:var(--gold);}
+  .price small{font-size:10px;color:var(--muted);margin-left:3px;}
+  .add{padding:6px 16px;border-radius:999px;border:none;background:var(--ember);color:#fff;font-size:14px;font-weight:600;font-family:var(--serif);cursor:pointer;}
+  .add:active{transform:scale(.95);}
+  .stepper{display:flex;align-items:center;gap:12px;}
+  .step{width:32px;height:32px;border-radius:50%;border:none;font-size:18px;cursor:pointer;}
+  .step.minus{background:rgba(201,163,94,.18);color:var(--ink);}
+  .step.plus{background:var(--ember);color:#fff;}
+  .step:active{transform:scale(.9);}
+  .qty{width:20px;text-align:center;font-size:18px;font-weight:600;color:var(--gold);}
+  .footnote{font-size:10px;text-align:center;color:#6d6150;margin-top:24px;line-height:1.7;}
+  .footnote .ig{color:var(--gold2);}
+
+  .checkout{position:fixed;left:0;right:0;bottom:0;max-width:480px;margin:0 auto;z-index:30;padding:12px 16px 16px;
+    background:linear-gradient(to top,#1d1712 70%,rgba(29,23,18,0));display:none;}
+  .checkout.show{display:block;}
+  .cbtn{width:100%;border:none;border-radius:16px;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;
+    background:linear-gradient(135deg,var(--ember),var(--ember2));box-shadow:0 8px 24px rgba(232,80,58,.35);cursor:pointer;}
+  .cbtn:active{transform:scale(.98);}
+  .cbtn .l{display:flex;align-items:center;gap:8px;}
+  .cbtn .cnt{width:28px;height:28px;border-radius:50%;background:rgba(0,0,0,.25);color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:14px;}
+  .cbtn .ltxt{color:#fff;font-weight:600;font-size:15px;}
+  .cbtn .tot{color:#fff;font-weight:700;font-size:20px;font-family:var(--mincho);}
+
+  .sheet-mask{position:fixed;inset:0;max-width:480px;margin:0 auto;z-index:40;background:rgba(0,0,0,.6);display:none;align-items:flex-end;}
+  .sheet-mask.show{display:flex;}
+  .sheet{width:100%;background:var(--bg2);border:1px solid rgba(201,163,94,.2);border-radius:24px 24px 0 0;max-height:88vh;overflow-y:auto;}
+  .shead{position:sticky;top:0;background:var(--bg2);border-bottom:1px solid var(--line);display:flex;align-items:center;padding:16px 20px;}
+  .shead h2{margin:0;flex:1;font-family:var(--mincho);font-size:20px;color:var(--gold);}
+  .x{background:none;border:none;color:var(--muted);font-size:24px;cursor:pointer;line-height:1;}
+  .oitems{padding:12px 20px;}
+  .oitem{display:flex;align-items:center;gap:10px;padding:6px 0;}
+  .oitem .on-num{color:var(--gold2);}
+  .oitem .oinfo{flex:1;}
+  .oitem .oinfo .t{font-size:14px;color:var(--ink);}
+  .oitem .oinfo .s{font-size:10px;color:var(--dim);}
+  .oitem .op{font-size:14px;font-weight:600;color:var(--gold);}
+  .om{width:24px;height:24px;border-radius:50%;border:none;font-size:14px;cursor:pointer;}
+  .om.minus{background:rgba(201,163,94,.15);color:var(--ink);}
+  .om.plus{background:rgba(232,80,58,.85);color:#fff;}
+  .totals{padding:12px 20px;border-top:1px solid var(--line);}
+  .tline{display:flex;justify-content:space-between;font-size:14px;color:var(--muted);margin-bottom:4px;}
+  .tgrand{display:flex;justify-content:space-between;font-family:var(--mincho);font-size:24px;font-weight:700;color:var(--gold);padding-top:4px;}
+  .note{font-size:10px;color:var(--dim);}
+
+  .staff{margin:8px 16px 24px;border-radius:16px;padding:16px;background:rgba(0,0,0,.3);border:1px dashed rgba(201,163,94,.35);}
+  .staff .title{font-size:12px;font-weight:600;color:var(--gold2);margin-bottom:10px;}
+  .srow{display:flex;align-items:center;justify-content:space-between;font-size:14px;color:#e6dccb;margin-bottom:6px;}
+  .srow .sn{color:var(--gold);}
+  .srow .sq{font-weight:700;color:var(--gold);}
+  .sfoot{font-size:11px;color:var(--dim);margin-top:10px;padding-top:8px;border-top:1px solid rgba(201,163,94,.15);line-height:1.6;}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="glow"></div>
+
+  <header>
+    <div class="ko">炭火燒肉</div>
+    <h1>琉宮苑</h1>
+    <div class="en">RYUGUEN ・ 沖繩線上點餐</div>
+    <div class="guests">
+      <span class="lbl">用餐人數</span>
+      <button class="gbtn" onclick="changeGuests(-1)">−</button>
+      <b id="guestNum">2</b>
+      <button class="gbtn" onclick="changeGuests(1)">＋</button>
+    </div>
+  </header>
+
+  <nav id="nav"></nav>
+  <main id="list"></main>
+
+  <div class="checkout" id="checkout">
+    <button class="cbtn" onclick="openSheet()">
+      <span class="l"><span class="cnt" id="cCount">0</span><span class="ltxt">查看訂單</span></span>
+      <span class="tot" id="cTotal">¥0</span>
+    </button>
+  </div>
+
+  <div class="sheet-mask" id="mask" onclick="if(event.target===this)closeSheet()">
+    <div class="sheet" id="sheet"></div>
+  </div>
+</div>
+
+<script>
+const CIRCLED=["","①","②","③","④","⑤","⑥","⑦","⑧","⑨","⑩","⑪","⑫","⑬","⑭","⑮","⑯","⑰","⑱","⑲","⑳",
+  "㉑","㉒","㉓","㉔","㉕","㉖","㉗","㉘","㉙","㉚","㉛","㉜","㉝","㉞","㉟","㊱","㊲","㊳","㊴","㊵",
+  "㊶","㊷","㊸","㊹","㊺","㊻","㊼","㊽","㊾","㊿","51","52","53","54","55","56","57","58","59","60"];
+const yen=n=>"¥"+n.toLocaleString();
+
+const MENU={
+  sets:{label:"套餐",groups:[{sub:"セットメニュー・每位",items:[
+    {id:1,zh:"主廚特選套餐",ja:"料理長お任せコース",price:12000,perGuest:true,
+     desc:"前菜・有機沙拉・泡菜／整條牛舌・鹽烤宮古牛2種・醬烤宮古牛3種＋生菜包肉／飯麵任選／甜點"},
+    {id:2,zh:"特選宮古牛套餐",ja:"特選 宮古牛セット",price:9800,perGuest:true,
+     desc:"前菜・有機沙拉・泡菜／醬味宮古牛3種・沖繩豬2種・嫩雞腿・烤蔬菜／飯或拌飯（半份）・湯／甜點"},
+    {id:3,zh:"招牌沖繩和牛套餐",ja:"琉宮苑 沖縄県産和牛セット",price:7800,perGuest:true,
+     desc:"前菜・有機沙拉・泡菜／和牛當日3部位・烤蝦魷魚・沖繩豬・山原雞・烤蔬菜／白飯・湯"},
+  ]}]},
+
+  beef:{label:"牛肉",groups:[{sub:"琉宮苑特選 宮古牛・沖縄県産和牛・輸入牛（醤油ダレ／塩）",items:[
+    {id:4,zh:"宮古牛 里肌（沙朗）",ja:"宮古牛ロース",price:3300},
+    {id:5,zh:"宮古牛 牛小排",ja:"宮古牛カルビ",price:3300},
+    {id:6,zh:"宮古牛 嫩肩里肌（板腱）",ja:"宮古牛ミスジ",price:3300},
+    {id:7,zh:"宮古牛 肋間肉（中落）",ja:"宮古牛中落カルビ",price:2200},
+    {id:8,zh:"上等牛 里肌",ja:"上ロース",price:2400},
+    {id:9,zh:"上等牛 牛小排",ja:"上カルビ",price:2200},
+    {id:10,zh:"牛小排",ja:"カルビ",price:1500},
+    {id:11,zh:"橫膈膜（裙肉）",ja:"ハラミ",price:1800,tag:"輸入牛"},
+    {id:12,zh:"整條牛舌（舌根到舌尖）",ja:"1本タン（タン元からタン先まで）",price:1500,tag:"輸入牛"},
+    {id:13,zh:"宮古牛 各式稀有部位",ja:"宮古牛各種希少部位",price:2300,from:true,desc:"依當日進貨，請看店內推薦看板"},
+  ]}]},
+
+  porkchicken:{label:"豬・雞",groups:[
+    {sub:"特選 沖縄県産豚",items:[
+      {id:14,zh:"沖繩豬五花",ja:"沖縄県産豚バラ肉",price:1600},
+      {id:15,zh:"沖繩松阪豬（頰・頸・肩）",ja:"沖縄県産豚トントロ",price:1100},
+      {id:16,zh:"沖繩豬舌",ja:"沖縄県産豚タン",price:1000},
+      {id:17,zh:"島豬香腸",ja:"島豚ウインナー",price:900},
+      {id:18,zh:"阿古豬辣味香腸",ja:"島唐辛子入りアグーウインナー",price:900},
+    ]},
+    {sub:"沖縄県産鶏肉",items:[
+      {id:19,zh:"沖繩嫩雞腿肉",ja:"沖縄県産若鶏もも肉",price:900},
+      {id:20,zh:"雞頸肉",ja:"せせり",price:900},
+    ]},
+  ]},
+
+  hormone:{label:"內臟・海鮮",groups:[
+    {sub:"ホルモン焼き（內臟燒烤）",items:[
+      {id:21,zh:"綜合內臟（特製味噌醬）",ja:"MIXホルモン（特製みそダレ）",price:1400},
+      {id:22,zh:"牛丸腸（肥腸）",ja:"丸腸",price:900},
+      {id:23,zh:"牛大腸",ja:"大腸",price:900},
+      {id:24,zh:"牛小腸",ja:"小腸",price:900},
+      {id:25,zh:"牛心",ja:"ハツ（こころ）",price:900},
+      {id:26,zh:"烤牛肝",ja:"焼きレバー",price:900},
+    ]},
+    {sub:"海鮮焼き（海鮮燒烤）",items:[
+      {id:27,zh:"烤鮮蝦",ja:"焼き海老",price:700},
+      {id:28,zh:"烤透抽",ja:"ヤリイカ",price:900},
+    ]},
+  ]},
+
+  veg:{label:"蔬菜・泡菜",groups:[
+    {sub:"焼き野菜（烤蔬菜）",items:[
+      {id:29,zh:"錫箔烤大蒜",ja:"にんにくホイル焼き",price:600},
+      {id:30,zh:"綜合烤蔬菜拼盤",ja:"野菜盛り合わせ",price:700},
+      {id:31,zh:"沖繩紅地瓜",ja:"紅いも",price:500},
+      {id:32,zh:"苦瓜",ja:"ゴーヤ",price:500},
+      {id:33,zh:"南瓜",ja:"かぼちゃ",price:500},
+    ]},
+    {sub:"キムチ・ナムル（泡菜・涼拌）",items:[
+      {id:34,zh:"綜合泡菜拼盤",ja:"キムチ盛り合わせ",price:1400},
+      {id:35,zh:"綜合韓式涼拌菜",ja:"ナムル盛り合わせ",price:900},
+      {id:36,zh:"辣醃鱈魚腸",ja:"チャンジャ",price:700},
+      {id:37,zh:"白菜泡菜",ja:"白菜キムチ",price:600},
+      {id:38,zh:"韓式醃蘿蔔",ja:"カクテキ",price:600},
+      {id:39,zh:"小黃瓜泡菜",ja:"オイキムチ",price:600},
+      {id:40,zh:"各式韓式涼拌菜",ja:"各種ナムル（ほうれん草／なます／もやし／ぜんまい）",price:500},
+    ]},
+    {sub:"サラダ（沙拉）",items:[
+      {id:41,zh:"海葡萄沙拉",ja:"海ぶどうサラダ",price:900},
+      {id:42,zh:"韓式生菜沙拉",ja:"チョレギサラダ",price:800},
+      {id:43,zh:"包肉生菜盤",ja:"包み野菜",price:700},
+    ]},
+  ]},
+
+  side:{label:"單品・湯鍋",groups:[
+    {sub:"一品料理・おつまみ（單品・下酒菜）",items:[
+      {id:44,zh:"琉宮苑特製韓式煎餅",ja:"琉宮苑特製チヂミ",price:1300},
+      {id:45,zh:"海葡萄",ja:"海ぶどう",price:900},
+      {id:46,zh:"宮古島產醋拌海蘊",ja:"宮古島産もずく酢",price:500},
+      {id:47,zh:"韓國海苔",ja:"韓国のり",price:300},
+    ]},
+    {sub:"チゲ（鍋物）",items:[
+      {id:48,zh:"沖繩嫩豆腐鍋",ja:"ゆし豆腐チゲ",price:1200},
+    ]},
+    {sub:"スープ（湯）",items:[
+      {id:49,zh:"牛小排湯",ja:"カルビスープ",price:1200},
+      {id:50,zh:"蛋花湯",ja:"玉子スープ",price:800},
+    ]},
+  ]},
+
+  rice:{label:"飯・麵",groups:[{sub:"御飯・麺類（飯・麵類）",items:[
+    {id:51,zh:"石鍋拌飯",ja:"石焼きビビンバ",price:1500},
+    {id:52,zh:"韓式拌飯",ja:"ビビンバ",price:1200},
+    {id:53,zh:"香辣牛小排湯飯",ja:"旨辛カルビクッパ",price:1400},
+    {id:54,zh:"蛋花湯飯",ja:"玉子クッパ",price:900},
+    {id:55,zh:"琉宮苑特製冷麵",ja:"琉宮苑特製冷麺",price:1300},
+    {id:56,zh:"白飯（大）",ja:"御飯（大）",price:400},
+    {id:57,zh:"白飯（中）",ja:"御飯（中）",price:350},
+    {id:58,zh:"白飯（小）",ja:"御飯（小）",price:200},
+  ]}]},
+
+  dessert:{label:"甜點",groups:[{sub:"デザート（甜點）",items:[
+    {id:59,zh:"南國冰淇淋（多種口味）",ja:"南国アイス（各種）",price:600},
+    {id:60,zh:"杏仁豆腐佐黑糖蜜",ja:"杏仁豆腐黒糖蜜がけ",price:600},
+  ]}]},
+};
+
+const ALL=Object.values(MENU).flatMap(t=>t.groups.flatMap(g=>g.items));
+const find=id=>ALL.find(i=>i.id===id);
+let cart={}, tab="sets", guests=2;
+
+function setQty(id,q){ if(q<=0)delete cart[id]; else cart[id]=q; render(); }
+function changeGuests(d){ guests=Math.max(1,guests+d); document.getElementById("guestNum").textContent=guests; renderSheet(); }
+function openSheet(){ renderSheet(); document.getElementById("mask").classList.add("show"); }
+function closeSheet(){ document.getElementById("mask").classList.remove("show"); }
+function tabCount(t){ return MENU[t].groups.flatMap(g=>g.items).reduce((a,it)=>a+(cart[it.id]||0),0); }
+
+function totals(){
+  let total=0,count=0,from=false;
+  for(const[id,q]of Object.entries(cart)){const it=find(+id);total+=it.price*q;count+=q;if(it.from)from=true;}
+  return{total,count,from};
+}
+
+function renderNav(){
+  document.getElementById("nav").innerHTML=Object.entries(MENU).map(([k,s])=>{
+    const c=tabCount(k);
+    return `<button class="${tab===k?'active':''}" onclick="selectTab('${k}')">${s.label}${c?`<span class="badge">${c}</span>`:''}</button>`;
+  }).join("");
+}
+function selectTab(k){ tab=k; render(); document.querySelector('main').scrollIntoView({behavior:'instant',block:'start'}); }
+
+function itemCard(it){
+  const q=cart[it.id]||0;
+  const ctrl=q===0
+    ? `<button class="add" onclick="setQty(${it.id},1)">加入</button>`
+    : `<div class="stepper"><button class="step minus" onclick="setQty(${it.id},${q-1})">−</button><span class="qty">${q}</span><button class="step plus" onclick="setQty(${it.id},${q+1})">＋</button></div>`;
+  return `<div class="card ${q?'on':''}">
+    <div class="num">${CIRCLED[it.id]}</div>
+    <div class="body">
+      <div class="nm"><h3>${it.zh}</h3>${it.tag?`<span class="tag">${it.tag}</span>`:''}</div>
+      <div class="ja">${it.ja}</div>
+      ${it.desc?`<div class="desc">${it.desc}</div>`:''}
+      <div class="row">
+        <span class="price">${it.from?'¥2,300〜':yen(it.price)}${it.perGuest?'<small>/位</small>':''}</span>
+        ${ctrl}
+      </div>
+    </div></div>`;
+}
+
+function renderList(){
+  const sec=MENU[tab];
+  const html=sec.groups.map(g=>
+    `<p class="subhead">${g.sub}</p>`+g.items.map(itemCard).join("")
+  ).join("");
+  document.getElementById("list").innerHTML=html+
+    `<p class="footnote">※ 圖片僅供參考　※ 標示價格均已含消費稅<br><span class="ig">📷 @RYUGUEN_MIYAKO</span></p>`;
+}
+
+function renderCheckout(){
+  const{total,count,from}=totals();
+  document.getElementById("checkout").classList.toggle("show",count>0);
+  document.getElementById("cCount").textContent=count;
+  document.getElementById("cTotal").textContent=yen(total)+(from?"〜":"");
+}
+
+function renderSheet(){
+  const{total,from}=totals();
+  const entries=Object.entries(cart).sort((a,b)=>a[0]-b[0]);
+  if(entries.length===0){closeSheet();return;}
+  const lines=entries.map(([id,q])=>{const it=find(+id);return `<div class="oitem">
+      <span class="on-num">${CIRCLED[it.id]}</span>
+      <div class="oinfo"><div class="t">${it.zh}</div><div class="s">${yen(it.price)}${it.from?'〜':''} × ${q}</div></div>
+      <span class="op">${yen(it.price*q)}${it.from?'〜':''}</span>
+      <button class="om minus" onclick="setQty(${it.id},${q-1})">−</button>
+      <button class="om plus" onclick="setQty(${it.id},${q+1})">＋</button>
+    </div>`;}).join("");
+  const staff=entries.map(([id,q])=>{const it=find(+id);return `<div class="srow"><span><span class="sn">${CIRCLED[it.id]}</span> ${it.ja}</span><span class="sq">× ${q}</span></div>`;}).join("");
+  document.getElementById("sheet").innerHTML=`
+    <div class="shead"><h2>我的訂單</h2><button class="x" onclick="closeSheet()">✕</button></div>
+    <div class="oitems">${lines}</div>
+    <div class="totals">
+      <div class="tline"><span>合計（含稅）</span><span>${yen(total)}${from?'〜':''}</span></div>
+      <div class="tline"><span>${guests} 人均攤</span><span>約 ${yen(Math.round(total/guests))}${from?'〜':''} /人</span></div>
+      <div class="tgrand"><span>總計</span><span>${yen(total)}${from?'〜':''}</span></div>
+      ${from?'<p class="note">※ ⑬稀有部位為起價，實際依當日報價</p>':''}
+    </div>
+    <div class="staff">
+      <div class="title">📋 給店員看 ・ ご注文リスト</div>
+      ${staff}
+      <p class="sfoot">すみません、こちらを注文お願いします。<br>（不好意思，我要點這些）</p>
+    </div>`;
+}
+
+function render(){ renderNav(); renderList(); renderCheckout();
+  if(document.getElementById("mask").classList.contains("show")) renderSheet(); }
+
+render();
+</script>
+</body>
+</html>
